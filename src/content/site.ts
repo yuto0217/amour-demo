@@ -7,10 +7,15 @@ export const site = {
   description: inn.description,
   phone: inn.phone,
   phoneHref: inn.phone ? `tel:${inn.phone.replace(/[^\d+]/g, '')}` : '',
+  /** 「電話で予約」のボタンを出すか（電話番号があり、phoneButton が true のとき） */
+  showPhoneButton: Boolean(inn.phone) && inn.phoneButton,
   points: inn.points.slice(0, 3),
   access: inn.access,
+  address: inn.address,
   /** 「空室を見る」の行き先。未設定の間は見本の注記のページ */
   bookingHref: inn.bookingUrl ?? '/booking',
+  /** 「空室を見る」が外のサイト（予約サイトなど）か */
+  bookingIsExternal: Boolean(inn.bookingUrl && /^https?:/.test(inn.bookingUrl)),
   copyright: `© ${inn.name}`,
 }
 

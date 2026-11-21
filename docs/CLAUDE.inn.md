@@ -7,11 +7,12 @@
 
 - **作るのはトップのヒーロー（写真のスライド＋宿名、宿の魅力・アクセス・予約ボタン）だけ**。タブ（客室・お料理・アクセス）はメニューに出すだけで、中身は作らない。タブを開くと「見本サイトのため表示されません。」を出す
 - 書き換えるのは `src/inn.config.ts` だけ。ページ・部品（`src/components/`・`src/pages/`）は触らない
-- 写真は使わない。ヒーローはラベル付きの色の枠（`hero` の `label` にどんな写真を入れるかを書く）。予約サイト・口コミサイト・Google マップ・SNS など他サイトの写真は使わない
+- 写真は使わない。ヒーローと宿の魅力の写真はラベル付きの色の枠（`hero` と `points` の `photo` の `label` にどんな写真を入れるかを書く）。予約サイト・口コミサイト・Google マップ・SNS など他サイトの写真は使わない
 - ヒーローに出すのは次の3つ（Yuto の指示、2026年11月21日）。紹介文・キャッチコピーは書き足さない（例外は操作に必要な最小限の文言と見本の注記）
-  1. 宿の魅力（`points`、2〜3個）：口コミで多く褒められている点から選ぶ。口コミの文は写さず、宿の立場の短い言葉にする。評価の点数や件数は載せない。「絶品」「最高級」のような誇張はしない
+  1. 宿の魅力（`points`、2〜3個。それぞれ写真の枠つき）：口コミで多く褒められている点から選ぶ。口コミの文は写さず、宿の立場の短い言葉にする。評価の点数や件数は載せない。「絶品」「最高級」のような誇張はしない
   2. アクセス（`access`）：地名と最寄り駅・バス停・IC からの時間
-  3. 予約ボタン：「電話で予約」（`phone`）と「空室を見る」（`bookingUrl`。未設定の間は「見本サイトのため表示されません。」のページ）
+     アクセスの下には住所（`address`）から Google マップを埋め込む（API キー不要の埋め込み。住所が分からない間は `null` で地図を出さない）
+  3. 予約ボタン：「電話で予約」（`phone`。`phoneButton: false` でボタンを出さない）と「空室を見る」（`bookingUrl`。予約サイトの宿のページなど。未設定の間は「見本サイトのため表示されません。」のページ）
 - 宿名・地名・電話番号・アクセスは、出典をたどれる公開情報の事実だけを書き、出典を下の「宿の基本情報」に残す。分からないものは書かない（電話は `null` のままにすれば電話ボタンが出ない）
 - 1件30分以内が目安。調べものは宿名・住所・電話・宿の雰囲気（色の組み合わせとヒーローのラベルを決めるため）まで
 - デプロイは Yuto の指示があるときだけ行う
@@ -21,8 +22,8 @@
 ```bash
 npm ci
 npm run setup -- --slug <ローマ字> --name "<宿名>" --kind 民宿 --area "<地名>" --pref "<都道府県・市町村>" --theme <色> --phone <電話> --new \
-  --point "<魅力1>" --point "<魅力2>" --access "<最寄り駅からの時間>"
-# src/inn.config.ts の hero（写真の枠のラベル）を宿に合わせる
+  --point "<魅力1>" --point "<魅力2>" --access "<最寄り駅からの時間>" --address "<住所>"
+# src/inn.config.ts の hero と points の写真の枠のラベル、address（地図）を宿に合わせる
 npm run check     # 色のコントラスト・型チェック・ビルド・書き忘れ
 npm run dev       # 画面を見る（スマホの幅でも）
 npm run deploy    # Yuto の指示があるときだけ
@@ -57,7 +58,7 @@ npm run deploy    # Yuto の指示があるときだけ
 src/
   inn.config.ts  ★宿の設定（ここだけ書き換える）
   content/       schema.ts（設定の型）, site.ts（宿名・電話・タブ）, images.ts（ヒーローの写真）
-  components/    layout（Header：宿名・タブ・電話, Footer, DemoBanner, MobileCtaBar）, home（HeroSlider：写真と宿名・停止ボタン付き, HeroInfo：宿の魅力・アクセス・予約ボタン）, ui
+  components/    layout（Header：宿名・タブ・電話, Footer, DemoBanner, MobileCtaBar）, home（HeroSlider：写真と宿名, HeroInfo：宿の魅力・アクセス・予約ボタン）, sections（MapEmbed：住所と地図）, ui
   pages/         HomePage（ヒーローだけ）, TabPage（タブの先・空室を見るの仮のページ）, NotFoundPage
 scripts/         setup-inn.mjs（宿名などの書き込み）, check-inn.mjs, contrast.mjs
 ```
@@ -67,5 +68,6 @@ scripts/         setup-inn.mjs（宿名などの書き込み）, check-inn.mjs, 
 - 背景は白（`cream`・`paper` とも #ffffff。Yuto の指示）
 - 本文は 15px 基準（`html { font-size: 93.75% }`）。ボタン・リンクの高さは 48px 以上（主要ボタンは 56px）
 - 文字のコントラスト比は AA（4.5:1）以上。色の組み合わせを足したら `npm run contrast`
-- ヒーローのスライドには停止ボタンがあり、`prefers-reduced-motion` のときは自動で切り替えない
+- ヒーローのスライドは `prefers-reduced-motion` のときは自動で切り替えない
+  - 停止ボタンと「何枚目か」の印は Yuto の指示で置いていない（2026年11月21日）。WCAG 2.2.2（5秒以上動くものは止められること）を満たさないので、本番公開前に再相談する
 - フォーカス枠を消さない。「本文へスキップ」リンクあり。見出しは h1 → h2 → h3 の順

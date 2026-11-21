@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { heroImages, type SiteImage } from '../../content/images'
 import { site } from '../../content/site'
-import { Icon } from '../ui/Icon'
 import { Photo } from '../ui/Photo'
 
 const slides: SiteImage[] = heroImages
@@ -12,10 +11,11 @@ function prefersReducedMotion() {
   return typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
-/** トップページ冒頭の写真のスライド（停止ボタン付き。動きを減らす設定のときは自動で切り替えない） */
+/** トップページ冒頭の写真のスライド（動きを減らす設定のときは自動で切り替えない） */
 export function HeroSlider() {
   const [current, setCurrent] = useState(0)
-  const [playing, setPlaying] = useState(() => !prefersReducedMotion())
+  // 停止ボタンと「何枚目か」の印は Yuto の指示で置いていない（2026年11月21日）。動きを減らす設定のときは自動で切り替えない
+  const [playing] = useState(() => !prefersReducedMotion())
 
   useEffect(() => {
     if (!playing) return
@@ -26,7 +26,7 @@ export function HeroSlider() {
   return (
     <section aria-labelledby="hero-title" className="surface-dark relative bg-mori-dark text-paper">
       <div className="relative aspect-[4/5] w-full overflow-hidden sm:aspect-[16/10] lg:aspect-auto lg:h-[min(80svh,720px)]">
-        <div role="region" aria-roledescription="カルーセル" aria-label={site.name} aria-live={playing ? 'off' : 'polite'}>
+        <div role="region" aria-roledescription="カルーセル" aria-label={site.name} aria-live="off">
           {slides.map((image, i) => (
             <div
               key={image.label}
@@ -56,29 +56,6 @@ export function HeroSlider() {
         </div>
       </div>
 
-      <div className="flex items-center justify-end gap-1 px-3 py-2 lg:absolute lg:right-6 lg:bottom-6 lg:rounded-full lg:bg-black/55 lg:py-1">
-        {slides.map((image, i) => (
-          <button
-            key={image.label}
-            type="button"
-            onClick={() => setCurrent(i)}
-            aria-label={`${i + 1}枚目を表示`}
-            aria-current={i === current ? 'true' : undefined}
-            className="inline-flex size-12 items-center justify-center rounded-full"
-          >
-            <span className={`block size-3 rounded-full border-2 border-cream ${i === current ? 'bg-cream' : 'bg-transparent'}`} />
-          </button>
-        ))}
-        <button
-          type="button"
-          onClick={() => setPlaying((p) => !p)}
-          aria-label={playing ? '自動切り替えを停止' : '自動切り替えを再開'}
-          className="ml-1 inline-flex min-h-[48px] items-center gap-1.5 rounded-full border-2 border-cream/80 px-4 text-sm font-bold whitespace-nowrap"
-        >
-          <Icon name={playing ? 'pause' : 'play'} className="size-4" />
-          {playing ? '停止' : '再生'}
-        </button>
-      </div>
     </section>
   )
 }

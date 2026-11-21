@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router'
 import { navItems, site } from '../../content/site'
+import { BookingLink } from '../ui/BookingLink'
 import { Icon } from '../ui/Icon'
 
 export function Logo({ tone = 'default' }: { tone?: 'default' | 'light' }) {
@@ -50,14 +51,11 @@ export function Header() {
         </nav>
 
         <div className="hidden items-center gap-2 xl:flex">
-          <Link
-            to={site.bookingHref}
-            className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg bg-mori px-3 py-1 font-bold whitespace-nowrap text-paper no-underline hover:bg-mori-dark"
-          >
+          <BookingLink className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg bg-mori px-3 py-1 font-bold whitespace-nowrap text-paper no-underline hover:bg-mori-dark">
             <Icon name="calendar" className="size-5" />
             <span className="text-sm">空室を見る</span>
-          </Link>
-          {site.phone && (
+          </BookingLink>
+          {site.showPhoneButton && (
             <a
               href={site.phoneHref}
               aria-label={`電話で予約 ${site.phone}`}

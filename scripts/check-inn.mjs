@@ -14,5 +14,6 @@ if (/slug: 'inn'/.test(config)) warn.push('まだ npm run setup をしていま�
 if (/phone: null/.test(config)) warn.push('電話番号が未設定です（「電話で予約」のボタンは出ません）')
 if (/points: \[\]/.test(config)) warn.push('宿の魅力（points）が未設定です')
 if (/access: null/.test(config)) warn.push('アクセス（access）が未設定です')
+if (/address: null/.test(config)) warn.push('住所（address）が未設定です（アクセスに地図が出ません）')
 if (/\{\{/.test(claude)) warn.push('CLAUDE.md に {{ }} が残っています')
 console.log(warn.length ? `\n⚠ ${warn.join('\n⚠ ')}` : '\nOK：このまま npm run deploy できます')

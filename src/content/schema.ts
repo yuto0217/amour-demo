@@ -26,6 +26,11 @@ export interface SiteImage {
   position?: string
 }
 
+export interface InnPoint {
+  text: string
+  photo: SiteImage
+}
+
 export interface InnConfig {
   /** 宿名のローマ字（リポジトリ名・Worker 名は `<slug>-demo`）。npm run setup が書き込む */
   slug: string
@@ -41,15 +46,20 @@ export interface InnConfig {
   logoChar: string
   /** 電話番号（分からない間は null。null の間は電話ボタンを出さない） */
   phone: string | null
+  /** 「電話で予約」のボタン（ヘッダー・画面下・予約の帯・フッター）を出すか */
+  phoneButton: boolean
   /** トップのスライドの写真（3枚まで。見本の間はラベル付きの色の枠） */
   hero: SiteImage[]
   /**
    * 宿の魅力（2〜3個。短い言葉で）。口コミで多く褒められている点から選び、口コミの文は写さず、事実を宿の立場の言葉にする
-   * 例：['伊勢海老漁を営む宿の海鮮舟盛り', '24時間入れる貸切の岩風呂']
+   * それぞれに写真の枠を1つ付ける（見本の間はラベル付きの色の枠）
+   * 例：[{ text: '伊勢海老漁を営む宿の海鮮舟盛り', photo: { label: '舟盛りの写真', alt: '伊勢海老の舟盛り', tone: 'kaki' } }]
    */
-  points: string[]
+  points: InnPoint[]
   /** アクセス（地名と最寄り駅・バス停・IC からの時間）。例：'伊豆急下田駅からバス約90分「雲見温泉」下車、歩いて2分' */
   access: string | null
+  /** 住所（アクセスの Google マップに使う。分からない間は null で、地図を出さない） */
+  address: string | null
   /** 「空室を見る」の行き先（予約システムや予約サイトの URL）。null の間は「見本サイトのため表示されません。」のページ */
   bookingUrl: string | null
 }

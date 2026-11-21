@@ -1,9 +1,11 @@
 import { site } from '../../content/site'
+import { MapEmbed } from '../sections/MapEmbed'
 import { ButtonLink } from '../ui/Button'
 import { Icon } from '../ui/Icon'
+import { Photo } from '../ui/Photo'
 import { Section, SectionHeading } from '../ui/Section'
 
-/** ヒーローの下に続く、宿の魅力・アクセス・予約ボタン（営業用の見本の中心） */
+/** ヒーローの下に続く、宿の魅力（写真の枠つき）・アクセス（地図つき）・予約ボタン（営業用の見本の中心） */
 export function HeroInfo() {
   return (
     <>
@@ -14,24 +16,32 @@ export function HeroInfo() {
           </h2>
           <ol className="grid gap-10 sm:gap-12 lg:grid-cols-3 lg:gap-8">
             {site.points.map((point, i) => (
-              <li key={point} className="border-t-4 border-kaki pt-5">
-                <p className="text-4xl font-bold text-kaki" aria-hidden="true">
+              <li key={point.text}>
+                <div className="aspect-[4/3] overflow-hidden rounded-2xl">
+                  <Photo image={point.photo} />
+                </div>
+                <p className="mt-5 text-4xl font-bold text-kaki" aria-hidden="true">
                   {String(i + 1).padStart(2, '0')}
                 </p>
-                <p className="mt-2 text-2xl leading-snug font-bold text-mori-dark sm:text-[1.75rem]">{point}</p>
+                <p className="mt-2 text-2xl leading-snug font-bold text-mori-dark sm:text-[1.75rem]">{point.text}</p>
               </li>
             ))}
           </ol>
         </Section>
       )}
 
-      {site.access && (
+      {(site.access || site.address) && (
         <Section labelledBy="home-access" className={site.points.length > 0 ? 'pt-0 sm:pt-0' : ''}>
           <SectionHeading id="home-access" title="アクセス" />
-          <p className="flex items-start gap-3 text-lg leading-relaxed">
-            <Icon name="train" className="mt-1 size-6 shrink-0 text-mori" />
-            <span>{site.access}</span>
-          </p>
+          <div className="grid gap-6">
+            {site.access && (
+              <p className="flex items-start gap-3 text-lg leading-relaxed">
+                <Icon name="train" className="mt-1 size-6 shrink-0 text-mori" />
+                <span>{site.access}</span>
+              </p>
+            )}
+            <MapEmbed />
+          </div>
         </Section>
       )}
 
@@ -41,7 +51,7 @@ export function HeroInfo() {
             ご予約
           </h2>
           <div className="mx-auto mt-6 grid w-full max-w-md gap-3">
-            {site.phone && (
+            {site.showPhoneButton && (
               <ButtonLink to={site.phoneHref} icon="phone" className="w-full text-lg">
                 電話で予約 <span className="ml-1 tracking-wider whitespace-nowrap">{site.phone}</span>
               </ButtonLink>

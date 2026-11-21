@@ -16,6 +16,7 @@
 //   --phone  電話番号（公開情報で確かめたものだけ。省略すると電話ボタンを出さない）
 //   --point  宿の魅力（2〜3回くり返して書く。口コミで多く褒められている点を、宿の立場の短い言葉で）
 //   --access アクセス（地名と最寄り駅・IC からの時間）
+//   --address 住所（アクセスの Google マップに使う。公開情報で確かめたものだけ）
 //   --booking 「空室を見る」の行き先 URL（省略すると見本の注記のページ）
 //   --new    新規ホームページの提案（省略するとリニューアルの提案）
 import { readFileSync, writeFileSync, existsSync, rmSync } from 'node:fs'
@@ -28,6 +29,7 @@ const { values: a } = parseArgs({
     phone: { type: 'string' },
     point: { type: 'string', multiple: true, default: [] },
     access: { type: 'string' },
+    address: { type: 'string' },
     booking: { type: 'string' },
     kind: { type: 'string', default: '民宿' },
     area: { type: 'string', default: '' },
@@ -73,8 +75,14 @@ edit('src/inn.config.ts', (s) =>
     .replace(/theme: '[^']*'/, `theme: '${a.theme}'`)
     .replace(/logoChar: '[^']*'/, `logoChar: '${q(char)}'`)
     .replace(/phone: null/, a.phone ? `phone: '${q(a.phone)}'` : 'phone: null')
-    .replace(/points: \[\]/, `points: [${a.point.map((p) => `'${q(p)}'`).join(', ')}]`)
+    .replace(
+      /points: \[\]/,
+      `points: [${a.point
+        .map((p, i) => `\n    { text: '${q(p)}', photo: { label: '${q(p)}の写真', alt: '${q(p)}', tone: '${['kaki', 'moss', 'wood'][i % 3]}' } },`)
+        .join('')}${a.point.length ? '\n  ' : ''}]`,
+    )
     .replace(/access: null/, a.access ? `access: '${q(a.access)}'` : 'access: null')
+    .replace(/address: null/, a.address ? `address: '${q(a.address)}'` : 'address: null')
     .replace(/bookingUrl: null/, a.booking ? `bookingUrl: '${q(a.booking)}'` : 'bookingUrl: null'),
 )
 
@@ -94,7 +102,7 @@ for (const p of ['README.md', 'docs']) if (existsSync(file(p))) rmSync(file(p), 
 
 console.log(`できました：${repo}（${a.name}、色 ${a.theme}、アイコン「${char}」）
 次にすること:
-  1. src/inn.config.ts の hero（写真の枠のラベル）・points（宿の魅力）・access を確かめる
+  1. src/inn.config.ts の hero と points の写真の枠のラベル・access・address を確かめる
   2. CLAUDE.md の「宿の基本情報」に出典を書く
   3. npm run check（色・型チェック・ビルド）
   4. npm run dev で画面を見る → npm run deploy`)

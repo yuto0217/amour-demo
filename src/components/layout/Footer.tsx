@@ -9,7 +9,7 @@ export function Footer() {
       <div className="mx-auto grid max-w-5xl gap-10 px-5 py-14 sm:px-8 md:grid-cols-2">
         <div>
           <Logo tone="light" />
-          {site.phone && (
+          {site.showPhoneButton && (
           <a
             href={site.phoneHref}
             className="mt-5 flex min-h-[48px] w-fit items-center gap-2 text-2xl font-bold tracking-wider text-paper no-underline"
