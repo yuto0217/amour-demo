@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react'
 import { Outlet, ScrollRestoration, useLocation } from 'react-router'
-import { site } from '../../content/site'
 import { DemoBanner } from './DemoBanner'
 import { Footer } from './Footer'
 import { Header } from './Header'
@@ -21,7 +20,7 @@ export function Layout() {
   }, [pathname])
 
   return (
-    <div className={`flex min-h-svh flex-col ${site.phone ? 'pb-[calc(88px+env(safe-area-inset-bottom))] xl:pb-0' : ''}`}>
+    <div className="flex min-h-svh flex-col pb-[calc(96px+env(safe-area-inset-bottom))] xl:pb-0">
       <a
         href="#main"
         className="sr-only z-[60] rounded-md bg-mori-dark px-4 py-3 font-bold text-cream focus:not-sr-only focus:fixed focus:top-2 focus:left-2"

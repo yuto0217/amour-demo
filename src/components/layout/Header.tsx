@@ -1,4 +1,5 @@
-import { Link, NavLink } from 'react-router'
+import { useState } from 'react'
+import { Link, NavLink, useLocation } from 'react-router'
 import { navItems, site } from '../../content/site'
 import { Icon } from '../ui/Icon'
 
@@ -12,24 +13,35 @@ export function Logo({ tone = 'default' }: { tone?: 'default' | 'light' }) {
   )
 }
 
-function tabClass({ isActive }: { isActive: boolean }) {
-  return `inline-flex min-h-[48px] flex-1 items-center justify-center rounded-md px-3 font-bold whitespace-nowrap no-underline hover:bg-mori-light sm:flex-none ${
-    isActive ? 'text-mori-dark underline decoration-kaki decoration-2 underline-offset-8' : 'text-ink'
-  }`
-}
-
-/** ヘッダー（宿名・タブ・ご予約の電話）。タブは3つだけなので、スマホでもメニューにしまわず並べる */
+/** ヘッダー（宿名・タブ・空室を見る・電話）。スマホではタブを「メニュー」にしまう */
 export function Header() {
+  const [open, setOpen] = useState(false)
+  const { pathname } = useLocation()
+  const [lastPath, setLastPath] = useState(pathname)
+
+  // ページが変わったらメニューを閉じる
+  if (pathname !== lastPath) {
+    setLastPath(pathname)
+    setOpen(false)
+  }
+
   return (
     <header className="border-b border-line bg-paper/95 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-4 px-5 py-1 sm:flex-nowrap sm:px-8 sm:py-2">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-2 sm:px-8">
         <Logo />
 
-        <nav aria-label="メインメニュー" className="order-last w-full sm:order-none sm:ml-auto sm:w-auto">
-          <ul className="flex items-center gap-1">
+        <nav aria-label="メインメニュー" className="hidden xl:block">
+          <ul className="flex items-center gap-0.5">
             {navItems.map((item) => (
-              <li key={item.to} className="flex flex-1 sm:flex-none">
-                <NavLink to={item.to} className={tabClass}>
+              <li key={item.to}>
+                <NavLink
+                  to={item.to}
+                  className={({ isActive }) =>
+                    `inline-flex min-h-[48px] items-center rounded-md px-2.5 font-medium whitespace-nowrap no-underline hover:bg-mori-light ${
+                      isActive ? 'text-mori-dark underline decoration-kaki decoration-2 underline-offset-8' : 'text-ink'
+                    }`
+                  }
+                >
                   {item.label}
                 </NavLink>
               </li>
@@ -37,19 +49,62 @@ export function Header() {
           </ul>
         </nav>
 
-        {site.phone && (
-          <a
-            href={site.phoneHref}
-            className="hidden min-h-[48px] flex-col items-center justify-center rounded-lg bg-kaki px-4 py-1 font-bold text-paper no-underline hover:bg-kaki-dark xl:inline-flex"
+        <div className="hidden items-center gap-2 xl:flex">
+          <Link
+            to={site.bookingHref}
+            className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg bg-mori px-3 py-1 font-bold whitespace-nowrap text-paper no-underline hover:bg-mori-dark"
           >
-            <span className="flex items-center gap-2 leading-tight">
+            <Icon name="calendar" className="size-5" />
+            <span className="text-sm">空室を見る</span>
+          </Link>
+          {site.phone && (
+            <a
+              href={site.phoneHref}
+              aria-label={`電話で予約 ${site.phone}`}
+              className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg bg-kaki px-3 py-1 font-bold whitespace-nowrap text-paper no-underline hover:bg-kaki-dark"
+            >
               <Icon name="phone" className="size-5" />
-              <span className="text-sm">ご予約</span>
-              <span className="tracking-wider whitespace-nowrap">{site.phone}</span>
-            </span>
-          </a>
-        )}
+              <span className="tracking-wider">{site.phone}</span>
+            </a>
+          )}
+        </div>
+
+        <button
+          type="button"
+          className="inline-flex min-h-[48px] min-w-[48px] shrink-0 items-center justify-center gap-1 rounded-lg border-2 border-mori px-3 font-bold whitespace-nowrap text-mori-dark xl:hidden"
+          aria-expanded={open}
+          aria-controls="mobile-menu"
+          onClick={() => setOpen((v) => !v)}
+        >
+          <Icon name={open ? 'close' : 'menu'} className="size-6" />
+          <span className="text-sm">{open ? '閉じる' : 'メニュー'}</span>
+        </button>
       </div>
+
+      {open && (
+        <nav id="mobile-menu" aria-label="メインメニュー" className="border-t border-line bg-paper xl:hidden">
+          <ul className="mx-auto max-w-5xl px-5 py-3 sm:px-8">
+            <li>
+              <NavLink to="/" end className={mobileLinkClass}>
+                トップページ
+              </NavLink>
+            </li>
+            {navItems.map((item) => (
+              <li key={item.to}>
+                <NavLink to={item.to} className={mobileLinkClass}>
+                  {item.label}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
     </header>
   )
+}
+
+function mobileLinkClass({ isActive }: { isActive: boolean }) {
+  return `flex min-h-[56px] items-center border-b border-line px-2 text-lg font-bold no-underline ${
+    isActive ? 'bg-mori-light text-mori-dark' : 'text-ink'
+  }`
 }
