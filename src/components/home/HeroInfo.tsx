@@ -26,11 +26,13 @@ export function HeroInfo() {
             {site.points.map((point, i) => (
               <li key={point.text}>
                 <Container>
-                  <div className="border-t-4 border-kaki pt-5">
-                    <p className="text-4xl font-bold text-kaki" aria-hidden="true">
-                      {String(i + 1).padStart(2, '0')}
-                    </p>
-                    <h3 className="mt-2 text-2xl leading-snug font-bold text-mori-dark sm:text-[1.75rem]">{point.text}</h3>
+                  <div>
+                    <h3 className="flex items-baseline gap-3 text-2xl leading-snug font-bold text-mori-dark sm:gap-4 sm:text-[1.75rem]">
+                      <span className="shrink-0 text-4xl text-kaki sm:text-5xl" aria-hidden="true">
+                        {i + 1}
+                      </span>
+                      <span>{point.text}</span>
+                    </h3>
                     {point.description && <p className="mt-4 max-w-3xl text-lg leading-loose">{point.description}</p>}
                   </div>
                 </Container>
