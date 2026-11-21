@@ -5,11 +5,13 @@ export const site = {
   name: inn.name,
   area: inn.area,
   description: inn.description,
+  intro: inn.intro,
   phone: inn.phone,
   phoneHref: inn.phone ? `tel:${inn.phone.replace(/[^\d+]/g, '')}` : '',
   /** 「電話で予約」のボタンを出すか（電話番号があり、phoneButton が true のとき） */
   showPhoneButton: Boolean(inn.phone) && inn.phoneButton,
   points: inn.points.slice(0, 3),
+  pointsTitle: inn.pointsTitle,
   access: inn.access,
   address: inn.address,
   /** 「空室を見る」の行き先。未設定の間は見本の注記のページ */

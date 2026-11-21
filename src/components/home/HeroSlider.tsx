@@ -53,6 +53,7 @@ export function HeroSlider() {
             <span className="mb-2 block text-base tracking-[0.3em] text-kaki-light sm:text-lg">{site.area}</span>
             {site.name}
           </h1>
+          {site.intro && <p className="mt-3 max-w-2xl text-base leading-relaxed text-white sm:text-lg">{site.intro}</p>}
         </div>
       </div>
 

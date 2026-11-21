@@ -1,29 +1,41 @@
 import { site } from '../../content/site'
 import { MapEmbed } from '../sections/MapEmbed'
-import { ButtonLink } from '../ui/Button'
 import { Icon } from '../ui/Icon'
 import { Photo } from '../ui/Photo'
 import { Section, SectionHeading } from '../ui/Section'
 
-/** ヒーローの下に続く、宿の魅力（写真の枠つき）・アクセス（地図つき）・予約ボタン（営業用の見本の中心） */
+/**
+ * ヒーローの下に続く、宿の魅力（写真の枠と説明つき）とアクセス（地図つき）
+ * 予約のボタンはヘッダー（パソコン）と画面下（スマホ）に出している
+ */
 export function HeroInfo() {
   return (
     <>
       {site.points.length > 0 && (
         <Section tone="paper" labelledBy="home-points">
-          <h2 id="home-points" className="sr-only">
-            宿の魅力
-          </h2>
-          <ol className="grid gap-10 sm:gap-12 lg:grid-cols-3 lg:gap-8">
+          {site.pointsTitle ? (
+            <SectionHeading id="home-points" title={site.pointsTitle} />
+          ) : (
+            <h2 id="home-points" className="sr-only">
+              宿の魅力
+            </h2>
+          )}
+          <ol className="grid gap-12 sm:gap-16">
             {site.points.map((point, i) => (
-              <li key={point.text}>
+              <li
+                key={point.text}
+                className={`grid items-center gap-6 lg:grid-cols-2 lg:gap-12 ${i % 2 ? 'lg:[&>div:first-child]:order-2' : ''}`}
+              >
                 <div className="aspect-[4/3] overflow-hidden rounded-2xl">
                   <Photo image={point.photo} />
                 </div>
-                <p className="mt-5 text-4xl font-bold text-kaki" aria-hidden="true">
-                  {String(i + 1).padStart(2, '0')}
-                </p>
-                <p className="mt-2 text-2xl leading-snug font-bold text-mori-dark sm:text-[1.75rem]">{point.text}</p>
+                <div>
+                  <p className="text-4xl font-bold text-kaki" aria-hidden="true">
+                    {String(i + 1).padStart(2, '0')}
+                  </p>
+                  <h3 className="mt-2 text-2xl leading-snug font-bold text-mori-dark sm:text-[1.75rem]">{point.text}</h3>
+                  {point.description && <p className="mt-4 text-lg leading-loose">{point.description}</p>}
+                </div>
               </li>
             ))}
           </ol>
@@ -44,24 +56,6 @@ export function HeroInfo() {
           </div>
         </Section>
       )}
-
-      <Section tone="wood" labelledBy="home-booking">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 id="home-booking" className="text-[1.5rem] font-bold text-mori-dark sm:text-3xl">
-            ご予約
-          </h2>
-          <div className="mx-auto mt-6 grid w-full max-w-md gap-3">
-            {site.showPhoneButton && (
-              <ButtonLink to={site.phoneHref} icon="phone" className="w-full text-lg">
-                電話で予約 <span className="ml-1 tracking-wider whitespace-nowrap">{site.phone}</span>
-              </ButtonLink>
-            )}
-            <ButtonLink to={site.bookingHref} icon="calendar" variant="secondary" className="w-full text-lg">
-              空室を見る
-            </ButtonLink>
-          </div>
-        </div>
-      </Section>
     </>
   )
 }

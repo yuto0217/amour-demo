@@ -27,7 +27,10 @@ export interface SiteImage {
 }
 
 export interface InnPoint {
+  /** 魅力の見出し（短い言葉） */
   text: string
+  /** 見出しの下の説明（1〜2文。事実だけで、誇張はしない）。なければ null */
+  description: string | null
   photo: SiteImage
 }
 
@@ -41,6 +44,8 @@ export interface InnConfig {
   area: string
   /** 検索結果に出る説明文（事実だけで1文） */
   description: string
+  /** ヒーローの宿名の下に出す紹介文（1〜2文。事実だけで、誇張はしない）。なければ null */
+  intro: string | null
   theme: ThemeName
   /** ブラウザのアイコンに出す1文字 */
   logoChar: string
@@ -56,6 +61,8 @@ export interface InnConfig {
    * 例：[{ text: '伊勢海老漁を営む宿の海鮮舟盛り', photo: { label: '舟盛りの写真', alt: '伊勢海老の舟盛り', tone: 'kaki' } }]
    */
   points: InnPoint[]
+  /** 宿の魅力の見出し（例：「太郎の魅力」）。null なら見出しを出さない */
+  pointsTitle: string | null
   /** アクセス（地名と最寄り駅・バス停・IC からの時間）。例：'伊豆急下田駅からバス約90分「雲見温泉」下車、歩いて2分' */
   access: string | null
   /** 住所（アクセスの Google マップに使う。分からない間は null で、地図を出さない） */
