@@ -53,7 +53,7 @@ export function Header() {
         <div className="hidden items-center gap-2 xl:flex">
           <BookingLink className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg bg-mori px-3 py-1 font-bold whitespace-nowrap text-paper no-underline hover:bg-mori-dark">
             <Icon name="calendar" className="size-5" />
-            <span className="text-sm">空室を見る</span>
+            <span className="text-sm">{site.bookingLabel}</span>
           </BookingLink>
           {site.showPhoneButton && (
             <a

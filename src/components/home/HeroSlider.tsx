@@ -1,27 +1,13 @@
-import { useEffect, useState } from 'react'
 import { heroImages, type SiteImage } from '../../content/images'
 import { site } from '../../content/site'
 import { Photo } from '../ui/Photo'
+import { useAutoSlide } from '../ui/useAutoSlide'
 
 const slides: SiteImage[] = heroImages
 
-const INTERVAL_MS = 7000
-
-function prefersReducedMotion() {
-  return typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
-}
-
 /** トップページ冒頭の写真のスライド（動きを減らす設定のときは自動で切り替えない） */
 export function HeroSlider() {
-  const [current, setCurrent] = useState(0)
-  // 停止ボタンと「何枚目か」の印は Yuto の指示で置いていない（2026年11月21日）。動きを減らす設定のときは自動で切り替えない
-  const [playing] = useState(() => !prefersReducedMotion())
-
-  useEffect(() => {
-    if (!playing) return
-    const timer = window.setInterval(() => setCurrent((i) => (i + 1) % slides.length), INTERVAL_MS)
-    return () => window.clearInterval(timer)
-  }, [playing])
+  const current = useAutoSlide(slides.length)
 
   return (
     <section aria-labelledby="hero-title" className="surface-dark relative bg-mori-dark text-paper">

@@ -12,7 +12,7 @@ export function MobileCtaBar() {
       <div className="mx-auto flex max-w-xl gap-2">
         <BookingLink className="flex min-h-[64px] flex-1 items-center justify-center gap-2 rounded-lg bg-mori px-2 py-1.5 font-bold text-paper no-underline">
           <Icon name="calendar" className="size-6 shrink-0" />
-          <span className="text-base leading-tight">空室を見る</span>
+          <span className="text-base leading-tight">{site.bookingLabel}</span>
         </BookingLink>
         {site.showPhoneButton && (
           <a

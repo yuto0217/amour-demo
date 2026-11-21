@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router'
 import { Layout } from './components/layout/Layout'
-import { navItems } from './content/site'
+import { navItems, site } from './content/site'
 import { HomePage } from './pages/HomePage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { TabPage } from './pages/TabPage'
@@ -13,7 +13,7 @@ export const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       ...navItems.map((item) => ({ path: item.to.slice(1), element: <TabPage title={item.label} /> })),
       // 「空室を見る」の行き先が決まるまでの仮のページ
-      { path: 'booking', element: <TabPage title="空室を見る" /> },
+      { path: 'booking', element: <TabPage title={site.bookingLabel} /> },
       { path: '*', element: <NotFoundPage /> },
     ],
   },

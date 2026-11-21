@@ -69,4 +69,6 @@ export interface InnConfig {
   address: string | null
   /** 「空室を見る」の行き先（予約システムや予約サイトの URL）。null の間は「見本サイトのため表示されません。」のページ */
   bookingUrl: string | null
+  /** 予約ボタンの名前（ふつうは「空室を見る」。例：「ご予約」） */
+  bookingLabel: string
 }

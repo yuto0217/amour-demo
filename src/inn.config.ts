@@ -32,4 +32,5 @@ export const inn: InnConfig = {
   access: null,
   address: null,
   bookingUrl: null,
+  bookingLabel: '空室を見る',
 }
