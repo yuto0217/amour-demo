@@ -5,7 +5,7 @@ import { Container, Section, SectionHeading } from '../ui/Section'
 import { PointsSlider } from './PointsSlider'
 
 /**
- * ヒーローの下に続く、宿の魅力（横幅いっぱいに流れる写真と、番号つきの説明）とアクセス（地図つき）
+ * ヒーローの下に続く、宿の魅力（魅力ごとに番号・見出し・説明と、横幅いっぱいに流れる写真）とアクセス（地図つき）
  * 予約のボタンはヘッダー（パソコン）と画面下（スマホ）に出している
  */
 export function HeroInfo() {
@@ -22,20 +22,24 @@ export function HeroInfo() {
               </h2>
             )}
           </Container>
-          <PointsSlider />
-          <Container>
-            <ol className={`mt-10 grid gap-10 sm:mt-14 ${site.points.length > 1 ? 'lg:grid-cols-2' : ''} lg:gap-12`}>
-              {site.points.map((point, i) => (
-                <li key={point.text} className="border-t-4 border-kaki pt-5">
-                  <p className="text-4xl font-bold text-kaki" aria-hidden="true">
-                    {String(i + 1).padStart(2, '0')}
-                  </p>
-                  <h3 className="mt-2 text-2xl leading-snug font-bold text-mori-dark sm:text-[1.75rem]">{point.text}</h3>
-                  {point.description && <p className="mt-4 text-lg leading-loose">{point.description}</p>}
-                </li>
-              ))}
-            </ol>
-          </Container>
+          <ol className="grid gap-14 sm:gap-20">
+            {site.points.map((point, i) => (
+              <li key={point.text}>
+                <Container>
+                  <div className="border-t-4 border-kaki pt-5">
+                    <p className="text-4xl font-bold text-kaki" aria-hidden="true">
+                      {String(i + 1).padStart(2, '0')}
+                    </p>
+                    <h3 className="mt-2 text-2xl leading-snug font-bold text-mori-dark sm:text-[1.75rem]">{point.text}</h3>
+                    {point.description && <p className="mt-4 max-w-3xl text-lg leading-loose">{point.description}</p>}
+                  </div>
+                </Container>
+                <div className="mt-8">
+                  <PointsSlider photos={point.photos} label={point.text} />
+                </div>
+              </li>
+            ))}
+          </ol>
         </section>
       )}
 

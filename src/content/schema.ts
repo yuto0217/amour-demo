@@ -31,7 +31,8 @@ export interface InnPoint {
   text: string
   /** 見出しの下の説明（1〜2文。事実だけで、誇張はしない）。なければ null */
   description: string | null
-  photo: SiteImage
+  /** 魅力ごとに横幅いっぱいで流す写真（1〜3枚。見本の間はラベル付きの色の枠） */
+  photos: SiteImage[]
 }
 
 export interface InnConfig {
@@ -57,8 +58,8 @@ export interface InnConfig {
   hero: SiteImage[]
   /**
    * 宿の魅力（2〜3個。短い言葉で）。口コミで多く褒められている点から選び、口コミの文は写さず、事実を宿の立場の言葉にする
-   * それぞれに写真の枠を1つ付ける（見本の間はラベル付きの色の枠）
-   * 例：[{ text: '伊勢海老漁を営む宿の海鮮舟盛り', photo: { label: '舟盛りの写真', alt: '伊勢海老の舟盛り', tone: 'kaki' } }]
+   * 魅力ごとに、番号・見出し・説明と、横幅いっぱいに流れる写真（photos）を出す
+   * 例：[{ text: '伊勢海老漁を営む宿の海鮮舟盛り', description: null, photos: [{ label: '舟盛りの写真', alt: '伊勢海老の舟盛り', tone: 'kaki' }] }]
    */
   points: InnPoint[]
   /** 宿の魅力の見出し（例：「太郎の魅力」）。null なら見出しを出さない */

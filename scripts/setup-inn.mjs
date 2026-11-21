@@ -78,7 +78,7 @@ edit('src/inn.config.ts', (s) =>
     .replace(
       /points: \[\]/,
       `points: [${a.point
-        .map((p, i) => `\n    { text: '${q(p)}', description: null, photo: { label: '${q(p)}の写真', alt: '${q(p)}', tone: '${['kaki', 'moss', 'wood'][i % 3]}' } },`)
+        .map((p, i) => `\n    { text: '${q(p)}', description: null, photos: [{ label: '${q(p)}の写真', alt: '${q(p)}', tone: '${['kaki', 'moss', 'wood'][i % 3]}' }] },`)
         .join('')}${a.point.length ? '\n  ' : ''}]`,
     )
     .replace(/access: null/, a.access ? `access: '${q(a.access)}'` : 'access: null')
