@@ -26,6 +26,12 @@ export interface SiteImage {
   position?: string
 }
 
+/** タブ（メニュー）1つ。to は「/」で始まる英字のパス */
+export interface NavItem {
+  to: string
+  label: string
+}
+
 export interface InnPoint {
   /** 魅力の見出し（短い言葉） */
   text: string
@@ -48,6 +54,8 @@ export interface InnConfig {
   /** ヒーローの宿名の下に出す紹介文（1〜2文。事実だけで、誇張はしない）。なければ null */
   intro: string | null
   theme: ThemeName
+  /** タブ（メニュー）。中身は作らず、開くと「見本サイトのため表示されません。」。ふつうは客室・お料理・アクセスの3つ */
+  tabs: NavItem[]
   /** ブラウザのアイコンに出す1文字 */
   logoChar: string
   /** 電話番号（分からない間は null。null の間は電話ボタンを出さない） */

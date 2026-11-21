@@ -19,6 +19,11 @@ export const inn: InnConfig = {
   description: '地域名の民宿「宿名」。',
   intro: null,
   theme: 'mori',
+  tabs: [
+    { to: '/rooms', label: '客室' },
+    { to: '/cuisine', label: 'お料理' },
+    { to: '/access', label: 'アクセス' },
+  ],
   logoChar: '宿',
   phone: null,
   phoneButton: true,

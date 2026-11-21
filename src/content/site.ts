@@ -1,5 +1,6 @@
 /** 宿の基本情報（src/inn.config.ts から作る。ここは書き換えない） */
 import { inn } from '../inn.config'
+import type { NavItem } from './schema'
 
 export const site = {
   name: inn.name,
@@ -23,8 +24,4 @@ export const site = {
 }
 
 /** タブ（メニュー）。営業用の見本では中身を作らず、開くと「見本サイトのため表示されません。」を出す */
-export const navItems = [
-  { to: '/rooms', label: '客室' },
-  { to: '/cuisine', label: 'お料理' },
-  { to: '/access', label: 'アクセス' },
-] as const
+export const navItems: readonly NavItem[] = inn.tabs
