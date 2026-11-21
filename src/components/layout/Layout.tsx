@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { Outlet, ScrollRestoration, useLocation } from 'react-router'
+import { useUi } from '../../content/i18n'
 import { DemoBanner } from './DemoBanner'
 import { Footer } from './Footer'
 import { Header } from './Header'
@@ -7,6 +8,7 @@ import { MobileCtaBar } from './MobileCtaBar'
 
 export function Layout() {
   const { pathname } = useLocation()
+  const ui = useUi()
   const mainRef = useRef<HTMLElement>(null)
   const isFirstRender = useRef(true)
 
@@ -20,12 +22,12 @@ export function Layout() {
   }, [pathname])
 
   return (
-    <div className="flex min-h-svh flex-col pb-[calc(96px+env(safe-area-inset-bottom))] xl:pb-0">
+    <div className="flex min-h-svh flex-col pb-[calc(76px+env(safe-area-inset-bottom))] xl:pb-0">
       <a
         href="#main"
         className="sr-only z-[60] rounded-md bg-mori-dark px-4 py-3 font-bold text-cream focus:not-sr-only focus:fixed focus:top-2 focus:left-2"
       >
-        本文へスキップ
+        {ui.skip}
       </a>
       <DemoBanner />
       {/* ヘッダーは画面上部に固定してずっと表示する */}

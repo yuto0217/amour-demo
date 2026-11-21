@@ -38,4 +38,5 @@ export const inn: InnConfig = {
   address: null,
   bookingUrl: null,
   bookingLabel: '空室を見る',
+  en: null,
 }

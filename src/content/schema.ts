@@ -41,6 +41,23 @@ export interface InnPoint {
   photos: SiteImage[]
 }
 
+/** 英語の表示（言語の切り替えボタンで英語を選んだとき）。日本語と同じ事実だけを訳す。書かない項目は日本語のまま */
+export interface InnEnglish {
+  name: string
+  area: string
+  description: string
+  intro: string | null
+  /** タブの名前（キーはタブのパス） */
+  tabs: Record<string, string>
+  /** ヒーローの写真の枠（日本語の hero と同じ順） */
+  hero: { label: string; alt: string }[]
+  /** 宿の魅力（日本語の points と同じ順。photos も同じ順） */
+  points: { text: string; description: string | null; photos: { label: string; alt: string }[] }[]
+  pointsTitle: string | null
+  access: string | null
+  bookingLabel: string
+}
+
 export interface InnConfig {
   /** 宿名のローマ字（リポジトリ名・Worker 名は `<slug>-demo`）。npm run setup が書き込む */
   slug: string
@@ -80,4 +97,6 @@ export interface InnConfig {
   bookingUrl: string | null
   /** 予約ボタンの名前（ふつうは「空室を見る」。例：「ご予約」） */
   bookingLabel: string
+  /** 英語の表示。null なら言語の切り替えボタンを出さない */
+  en: InnEnglish | null
 }
