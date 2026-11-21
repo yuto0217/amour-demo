@@ -1,0 +1,9 @@
+# CLAUDE.md — 営業用の見本サイトのテンプレート（inn-demo-template）
+
+このリポジトリはテンプレート自身。使い方は README.md、宿ごとの見本のルールは `docs/CLAUDE.inn.md`（`npm run setup` で各見本の CLAUDE.md になる）。
+
+- 営業用の見本は「ヒーロー＋タブ（客室・お料理・アクセス）だけ」。タブの中身は作らない（Yuto の指示、2026年11月21日）
+- 宿ごとに変えるのは `src/inn.config.ts` だけ。部品に宿の名前や文章を直接書かない
+- 作業の最後に `npm run check`（色のコントラスト・型チェック・ビルド）が通ることを確かめる
+- Cloudflare Workers で動かないライブラリは `src/`・`worker/` に入れない。新しい依存関係は必要最小限にする
+- デプロイは Yuto の指示があるときだけ
