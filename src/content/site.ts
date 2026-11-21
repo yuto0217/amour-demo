@@ -7,6 +7,10 @@ export const site = {
   description: inn.description,
   phone: inn.phone,
   phoneHref: inn.phone ? `tel:${inn.phone.replace(/[^\d+]/g, '')}` : '',
+  points: inn.points.slice(0, 3),
+  access: inn.access,
+  /** 「空室を見る」の行き先。未設定の間は見本の注記のページ */
+  bookingHref: inn.bookingUrl ?? '/booking',
   copyright: `© ${inn.name}`,
 }
 

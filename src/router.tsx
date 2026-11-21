@@ -12,6 +12,8 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       ...navItems.map((item) => ({ path: item.to.slice(1), element: <TabPage title={item.label} /> })),
+      // 「空室を見る」の行き先が決まるまでの仮のページ
+      { path: 'booking', element: <TabPage title="空室を見る" /> },
       { path: '*', element: <NotFoundPage /> },
     ],
   },

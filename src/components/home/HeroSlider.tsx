@@ -25,7 +25,7 @@ export function HeroSlider() {
 
   return (
     <section aria-labelledby="hero-title" className="surface-dark relative bg-mori-dark text-paper">
-      <div className="relative aspect-square w-full overflow-hidden sm:aspect-[16/10] lg:aspect-auto lg:h-[min(80svh,720px)]">
+      <div className="relative aspect-[4/3] w-full overflow-hidden sm:aspect-[16/10] lg:aspect-auto lg:h-[min(70svh,640px)]">
         <div role="region" aria-roledescription="カルーセル" aria-label={site.name} aria-live={playing ? 'off' : 'polite'}>
           {slides.map((image, i) => (
             <div
@@ -38,7 +38,7 @@ export function HeroSlider() {
                 i === current ? 'opacity-100' : 'opacity-0'
               }`}
             >
-              <Photo image={image} labelPosition="top" loading={i === 0 ? 'eager' : 'lazy'} className={image.src ? '' : 'pt-5'} />
+              <Photo image={image} loading={i === 0 ? 'eager' : 'lazy'} className={image.src ? '' : 'pb-24'} />
             </div>
           ))}
         </div>
@@ -56,7 +56,7 @@ export function HeroSlider() {
         </div>
       </div>
 
-      <div className="flex items-center justify-end gap-1 px-3 py-2 lg:absolute lg:right-6 lg:bottom-6 lg:rounded-full lg:bg-black/55 lg:py-1">
+      <div className="absolute top-2 right-2 flex items-center gap-0.5 rounded-full bg-black/55 px-1 py-0.5 lg:top-auto lg:right-6 lg:bottom-6">
         {slides.map((image, i) => (
           <button
             key={image.label}
@@ -66,14 +66,14 @@ export function HeroSlider() {
             aria-current={i === current ? 'true' : undefined}
             className="inline-flex size-12 items-center justify-center rounded-full"
           >
-            <span className={`block size-3 rounded-full border-2 border-cream ${i === current ? 'bg-cream' : 'bg-transparent'}`} />
+            <span className={`block size-3 rounded-full border-2 border-white ${i === current ? 'bg-white' : 'bg-transparent'}`} />
           </button>
         ))}
         <button
           type="button"
           onClick={() => setPlaying((p) => !p)}
           aria-label={playing ? '自動切り替えを停止' : '自動切り替えを再開'}
-          className="ml-1 inline-flex min-h-[48px] items-center gap-1.5 rounded-full border-2 border-cream/80 px-4 text-sm font-bold whitespace-nowrap"
+          className="ml-1 inline-flex min-h-[48px] items-center gap-1.5 rounded-full px-3 text-sm font-bold whitespace-nowrap"
         >
           <Icon name={playing ? 'pause' : 'play'} className="size-4" />
           {playing ? '停止' : '再生'}

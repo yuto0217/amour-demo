@@ -11,6 +11,8 @@ const config = readFileSync(new URL('../src/inn.config.ts', import.meta.url), 'u
 const claude = readFileSync(new URL('../CLAUDE.md', import.meta.url), 'utf8')
 const warn = []
 if (/slug: 'inn'/.test(config)) warn.push('まだ npm run setup をしていません（slug が inn のままです）')
-if (/phone: null/.test(config)) warn.push('電話番号が未設定です（電話ボタンは出ません）')
+if (/phone: null/.test(config)) warn.push('電話番号が未設定です（「電話で予約」のボタンは出ません）')
+if (/points: \[\]/.test(config)) warn.push('宿の魅力（points）が未設定です')
+if (/access: null/.test(config)) warn.push('アクセス（access）が未設定です')
 if (/\{\{/.test(claude)) warn.push('CLAUDE.md に {{ }} が残っています')
 console.log(warn.length ? `\n⚠ ${warn.join('\n⚠ ')}` : '\nOK：このまま npm run deploy できます')

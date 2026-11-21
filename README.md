@@ -1,6 +1,6 @@
 # inn-demo-template — 営業用の見本サイトのテンプレート
 
-小さな宿への営業に使う見本サイトのひな形です。**トップのヒーロー（写真のスライド＋宿名）とタブ（客室・お料理・アクセス）だけ**を表示し、タブの中身は作りません（開くと「見本サイトのため表示されません。」）。宿ごとに書き換えるのは `src/inn.config.ts` だけです。
+小さな宿への営業に使う見本サイトのひな形です。**トップのヒーロー（写真のスライド＋宿名、宿の魅力・アクセス・「電話で予約」「空室を見る」のボタン）とタブ（客室・お料理・アクセス）だけ**を表示し、タブの中身は作りません（開くと「見本サイトのため表示されません。」）。宿ごとに書き換えるのは `src/inn.config.ts` だけです。
 
 ## 新しい宿の見本を作る（1件30分以内が目安）
 
@@ -10,11 +10,12 @@
    ```bash
    npm ci
    npm run setup -- --slug banjoya --name "雲見温泉 民宿 番上屋" --kind 民宿 --area "西伊豆・雲見温泉" \
-     --pref "静岡県賀茂郡松崎町" --theme nagisa --phone 0558-45-0244 --new
+     --pref "静岡県賀茂郡松崎町" --theme nagisa --phone 0558-45-0244 --new \
+     --point "<魅力1>" --point "<魅力2>" --access "<最寄り駅からの時間>"
    ```
 
-   `package.json`・`wrangler.jsonc` の名前、`src/inn.config.ts`、宿ごとの `CLAUDE.md`（`docs/CLAUDE.inn.md` から）ができ、この README は消えます。
-3. `src/inn.config.ts` の `hero` のラベル（どんな写真を入れるか）を宿に合わせる
+   `package.json`・`wrangler.jsonc` の名前、`src/inn.config.ts`、宿ごとの `CLAUDE.md`（`docs/CLAUDE.inn.md` から）ができ、この README と docs/ は消えます。
+3. `src/inn.config.ts` の `hero` のラベル（どんな写真を入れるか）を宿に合わせる。宿の魅力は口コミで多く褒められている点から選び、口コミの文は写さない
 4. `npm run check` → `npm run dev` で確認 → `npm run deploy`
 
 Claude に頼むときは「`<宿名>`（じゃらん等の URL）の営業用の見本を inn-demo-template から作って」と伝えれば、`docs/CLAUDE.inn.md` のルールで作ります。

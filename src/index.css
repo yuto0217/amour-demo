@@ -10,9 +10,9 @@
 @theme {
   --font-sans: 'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo', sans-serif;
 
-  /* 生成り・紙 */
-  --color-cream: #f8f3e7;
-  --color-paper: #fffdf7;
+  /* 背景（白。Yuto の指示、2026年11月21日）。cream はページ、paper はヘッダーなどの背景 */
+  --color-cream: #ffffff;
+  --color-paper: #ffffff;
   --color-line: #ddd1bd;
 
   /* 文字 */
