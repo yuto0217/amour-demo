@@ -60,7 +60,7 @@ export const inn: InnConfig = {
       ],
     },
   ],
-  pointsTitle: 'アムールの魅力',
+  pointsTitle: 'アムールの特徴',
   // お部屋はどの宿でも書く。料理・温泉は宿の強みのときだけ書き、そうでなければ null
   rooms: {
     title: 'お部屋',
