@@ -34,10 +34,7 @@ export function HeroInfo() {
               >
                 <Container className="lg:px-0">
                   <div>
-                    <p lang="en" aria-hidden="true" className="font-display text-3xl text-kaki-dark">
-                      {String(i + 1).padStart(2, '0')}
-                    </p>
-                    <h3 className="mt-2 text-2xl leading-snug font-medium text-mori-dark sm:text-[1.75rem]">
+                    <h3 className="text-2xl leading-snug font-medium text-mori-dark sm:text-[1.75rem]">
                       <span className={site.lang === 'ja' ? 'whitespace-nowrap max-sm:text-[min(1.25rem,5.2vw)]' : ''}>{point.text}</span>
                     </h3>
                     {point.description && <p className="mt-4 max-w-3xl text-justify text-lg leading-loose">{point.description}</p>}
