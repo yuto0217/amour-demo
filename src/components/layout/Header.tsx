@@ -68,7 +68,7 @@ export function Header() {
   return (
     <>
     <header className="border-b border-line bg-paper/95 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-5 py-2 max-[359px]:gap-2 max-[359px]:px-3 sm:px-8">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-5 py-2 max-sm:gap-2 max-sm:px-4 max-[359px]:px-3 sm:px-8">
         <Logo />
 
         <div className="flex shrink-0 items-center gap-2">
@@ -88,7 +88,7 @@ export function Header() {
           )}
           <button
             type="button"
-            className="inline-flex min-h-[48px] min-w-[48px] shrink-0 items-center justify-center gap-1 rounded-sm border border-line px-3 font-medium whitespace-nowrap text-mori-dark"
+            className="inline-flex min-h-[48px] min-w-[48px] shrink-0 items-center justify-center gap-1 rounded-sm border border-line px-2 sm:px-3 font-medium whitespace-nowrap text-mori-dark"
             aria-expanded={open}
             aria-controls="main-menu"
             onClick={() => setOpen(true)}
@@ -207,11 +207,11 @@ function LangSwitch() {
         aria-controls={listId}
         aria-label={`Language: ${current.label}`}
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex min-h-[40px] min-w-[40px] items-center justify-center gap-1 rounded-sm border border-line px-2.5 font-medium whitespace-nowrap text-kaki-dark hover:bg-mori-light"
+        className="inline-flex min-h-[40px] min-w-[40px] items-center justify-center gap-1 rounded-sm border border-line px-2 sm:px-2.5 font-medium whitespace-nowrap text-kaki-dark hover:bg-mori-light"
       >
-        <Icon name="globe" className="size-4 shrink-0" />
-        <span className="text-xs">{current.short}</span>
-        <Icon name="chevron" className={`size-3.5 shrink-0 transition-transform ${open ? 'rotate-180' : ''}`} />
+        <Icon name="globe" className="hidden size-4 shrink-0 sm:block" />
+        <span className="text-xs">Language</span>
+        <Icon name="chevron" className={`hidden size-3.5 shrink-0 transition-transform sm:block ${open ? 'rotate-180' : ''}`} />
       </button>
       {open && (
         <ul
