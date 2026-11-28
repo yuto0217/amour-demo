@@ -49,6 +49,8 @@ export interface InnDetailFeature {
   title: string
   /** 見出しの下の説明（1文。事実だけで、誇張はしない）。なければ null */
   text: string | null
+  /** 見出しの下に箇条書きで並べる短い言葉（例：お部屋のアメニティの「Wi-Fi 無料」「全室禁煙」「バス・トイレ別」）。なければ省略 */
+  items?: string[]
 }
 
 /**
@@ -70,7 +72,7 @@ export interface InnDetail {
 export interface InnDetailEnglish {
   title: string
   lead: string | null
-  features: { title: string; text: string | null }[]
+  features: { title: string; text: string | null; items?: string[] }[]
   photos: { label: string; alt: string }[]
 }
 
@@ -136,7 +138,7 @@ export interface InnConfig {
   pointsTitle: string | null
   /**
    * 宿の魅力の後に続く紹介（この順に出す）。情報収集の事実だけで書く
-   * - rooms：お部屋。どの宿でも書く。features は「広さ」「ベッドタイプ」「定員」「設備」（Wi-Fi・禁煙・バストイレ別など）の4つをこの順で（分からない項目は出さない）
+   * - rooms：お部屋。どの宿でも書く。features は「広さ」「ベッドタイプ」「定員」「アメニティ」の4つをこの順で。アメニティは Wi-Fi・禁煙・バストイレ別などを items に箇条書きで書く（分からない項目は出さない）
    * - cuisine：料理。料理が宿の強み（口コミで多く褒められている・名物料理がある）のときだけ。そうでなければ null
    * - bath：温泉・お風呂。温泉・お風呂が宿の強みのときだけ。そうでなければ null
    * 宿の魅力（points）と同じ説明はくり返さず、時間・設備・内容などの具体的な事実を features に並べる

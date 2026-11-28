@@ -41,6 +41,16 @@ export function DetailSections() {
                         <div className="min-w-0">
                           <p className="text-lg leading-snug font-medium text-mori-dark">{feature.title}</p>
                           {feature.text && <p className="mt-1 leading-relaxed text-ink-soft">{feature.text}</p>}
+                          {feature.items && feature.items.length > 0 && (
+                            <ul className="mt-2 grid gap-1 leading-relaxed text-ink-soft">
+                              {feature.items.map((item, k) => (
+                                <li key={k} className="flex items-start gap-2">
+                                  <span aria-hidden="true" className="mt-[0.7em] size-1.5 shrink-0 rounded-full bg-kaki" />
+                                  <span className="min-w-0">{item}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
                         </div>
                       </li>
                     ))}
