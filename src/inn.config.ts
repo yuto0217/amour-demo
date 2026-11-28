@@ -94,5 +94,80 @@ export const inn: InnConfig = {
   bookingUrl: null,
   bookingLabel: '空室を見る',
   heroBooking: true,
-  en: null,
+  en: {
+    name: 'Pension Amour',
+    area: 'Yatsugatake / Oizumi',
+    description: 'Pension Amour, a pension in Kai-Oizumi at the southern foot of the Yatsugatake Mountains.',
+    intro: null,
+    catchcopy: ['A pension surrounded by nature, about 1,150 m above sea level at the southern foot of the Yatsugatake Mountains.'],
+    tabs: {
+      '/rooms': 'Rooms',
+      '/cuisine': 'Cuisine',
+      '/access': 'Access',
+    },
+    hero: [
+      { label: 'Photo of the pension surrounded by the trees of southern Yatsugatake', alt: 'Pension Amour surrounded by trees' },
+      { label: 'Photo of freshly baked bread at breakfast', alt: 'A breakfast of freshly baked homemade bread' },
+      { label: 'Photo of the garden surrounded by the trees of southern Yatsugatake', alt: 'A garden surrounded by trees' },
+    ],
+    points: [
+      {
+        text: 'Rich nature at about 1,150 m in southern Yatsugatake',
+        description:
+          'Surrounded by rich nature, you can spend your time at a relaxed pace. In summer, it is also a good place to escape the heat. Enjoy a pleasant time in the clear air, in the green garden or on the covered deck.',
+        photos: [
+          { label: 'Photo of the garden surrounded by trees', alt: 'A garden surrounded by the trees of southern Yatsugatake' },
+          { label: 'Photo of the covered deck', alt: 'A covered deck' },
+        ],
+      },
+      {
+        text: 'Freshly baked homemade bread',
+        description:
+          'The bread for breakfast is prepared and baked every morning. Our guests enjoy how good it tastes fresh from the oven. After breakfast, you can also try making bread yourself.',
+        photos: [
+          { label: 'Photo of freshly baked bread', alt: 'Freshly baked homemade bread' },
+          { label: 'Photo of breakfast', alt: 'A breakfast with freshly baked bread' },
+          { label: 'Photo of the bread-making experience', alt: 'Bread-making experience' },
+        ],
+      },
+      {
+        text: '8 minutes from the station, near a hot spring',
+        description:
+          'The pension is an 8-minute walk from Kai-Oizumi Station on the JR Koumi Line. The day-trip hot spring "Panorama no Yu", which has an open-air bath, is a 9-minute walk away. Discounted bath tickets for Panorama no Yu are available at the pension.',
+        photos: [
+          { label: 'Photo of Kai-Oizumi Station', alt: 'Kai-Oizumi Station on the JR Koumi Line' },
+          { label: 'Photo of the nearby day-trip hot spring', alt: 'A day-trip hot spring with an open-air bath' },
+        ],
+      },
+    ],
+    pointsTitle: 'Features of Amour',
+    access: 'About 10 minutes by car from Nagasaka IC on the Chuo Expressway. An 8-minute walk from Kai-Oizumi Station on the JR Koumi Line',
+    bookingLabel: 'Check Availability',
+    rooms: {
+      title: 'Rooms',
+      lead: 'We have Western-style twin and triple rooms, and Japanese-Western rooms where a bedroom opens onto a tatami room.',
+      features: [
+        { title: 'Size', text: 'Western-style rooms are 6 to 7 tatami mats. Japanese-Western rooms have a 5 to 6 mat bedroom joined to a 6 to 8 mat tatami room.' },
+        { title: 'Beds', text: 'Double, twin, or triple (three single beds)' },
+        { title: 'Capacity', text: '2 to 4 guests, depending on the room' },
+        { title: 'Amenities', text: null, items: ['Wi-Fi available', 'Non-smoking throughout the building', 'Shared toilets and baths', 'Air conditioning and TV'] },
+      ],
+      photos: [
+        { label: 'Photo of a Japanese-Western room', alt: 'A Western-style bedroom joined to a tatami room' },
+        { label: 'Photo of a twin room', alt: 'A Western-style room with two beds' },
+      ],
+    },
+    cuisine: {
+      title: 'Cuisine',
+      lead: 'Breakfast is Western-style with freshly baked homemade bread. Dinner is a homemade Western full-course meal made with plenty of highland vegetables.',
+      features: [
+        { title: 'Breakfast', text: null, items: ['Menu: Western-style breakfast with freshly baked homemade bread', 'Starts at: 8:00'] },
+        { title: 'Dinner', text: null, items: ['Menu: A Western full-course meal from soup to dessert, made with highland vegetables', 'Starts at: 18:30'] },
+      ],
+      photos: [
+        { label: 'Photo of the dinner course', alt: 'A Western course made with highland vegetables' },
+        { label: 'Photo of the dining room', alt: 'The dining room' },
+      ],
+    },
+  },
 }
