@@ -12,7 +12,7 @@ export function Logo({ tone = "default" }: { tone?: "default" | "light" }) {
   return (
     <Link
       to="/"
-      className="inline-flex min-h-[48px] flex-col justify-center no-underline"
+      className="inline-flex min-h-[48px] min-w-0 flex-col justify-center no-underline"
     >
       <span
         className={`text-xs font-medium whitespace-nowrap ${site.lang === 'en' ? 'tracking-wider' : 'tracking-[0.2em]'} ${light ? "text-kaki-light" : "text-kaki-dark"}`}
@@ -20,7 +20,7 @@ export function Logo({ tone = "default" }: { tone?: "default" | "light" }) {
         {site.area}
       </span>
       <span
-        className={`mt-0.5 font-serif leading-tight font-medium whitespace-nowrap ${site.lang === 'en' ? 'text-base max-[359px]:text-sm sm:text-lg' : 'text-lg tracking-wider'} ${light ? "text-paper" : "text-mori-dark"}`}
+        className={`mt-0.5 font-serif leading-tight font-medium sm:whitespace-nowrap ${site.lang === 'en' ? 'text-base max-[359px]:text-sm sm:text-lg' : 'text-lg tracking-wider'} ${light ? "text-paper" : "text-mori-dark"}`}
       >
         {site.name}
       </span>

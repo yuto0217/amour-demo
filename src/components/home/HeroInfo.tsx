@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import { useUi } from '../../content/i18n'
 import { useSite } from '../../content/site'
 import { MapEmbed } from '../sections/MapEmbed'
@@ -10,6 +11,12 @@ import { PointsSlider } from './PointsSlider'
  * ヒーローの下に続く、宿の魅力（魅力ごとに、横幅いっぱいに流れる写真を先に、番号・見出し・説明を後に。パソコンでは左右交互）→ お部屋・料理・温泉の紹介 → アクセス（地図つき）
  * 予約のボタンはヘッダー（パソコン）と画面下（スマホ）に出している
  */
+/** スマホで見出しを1行に収める文字の大きさ（全角1文字＝1、半角＝0.6、ゆとり1.5文字として、画面幅から左右の余白 2.5rem を引いた幅に収める。最大 1.25rem） */
+function fitOneLine(text: string) {
+  const units = [...text].reduce((n, c) => n + (c.charCodeAt(0) < 0x2000 ? 0.6 : 1), 0) + 1.5
+  return `min(1.25rem, calc((100vw - 2.5rem) / ${units.toFixed(1)}))`
+}
+
 export function HeroInfo() {
   const site = useSite()
   const ui = useUi()
@@ -35,7 +42,12 @@ export function HeroInfo() {
                 <Container className="lg:px-0">
                   <div>
                     <h3 className="text-2xl leading-snug font-medium text-mori-dark sm:text-[1.75rem]">
-                      <span className={site.lang === 'ja' ? 'whitespace-nowrap max-sm:text-[min(1.25rem,4.5vw)]' : ''}>{point.text}</span>
+                      <span
+                        className={site.lang === 'ja' ? 'whitespace-nowrap max-sm:text-[length:var(--title-size)]' : ''}
+                        style={site.lang === 'ja' ? ({ '--title-size': fitOneLine(point.text) } as CSSProperties) : undefined}
+                      >
+                        {point.text}
+                      </span>
                     </h3>
                     {point.description && <p className="mt-4 max-w-3xl text-justify text-lg leading-loose">{point.description}</p>}
                   </div>
