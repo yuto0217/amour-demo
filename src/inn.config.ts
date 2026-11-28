@@ -18,7 +18,7 @@ export const inn: InnConfig = {
   area: '八ヶ岳・大泉',
   description: '八ヶ岳南麓・甲斐大泉のペンション「ペンション アムール」。',
   intro: null,
-  catchcopy: ['八ヶ岳南麓、木々の緑に囲まれて。', '朝は、手作りの焼きたてパンから。'],
+  catchcopy: ['八ヶ岳の南麓、標高約1,150mに位置する自然に囲まれたペンションです。', '朝食の焼きたて手作りパンが好評です。'],
   theme: 'mori',
   tabs: [
     { to: '/rooms', label: '客室' },
