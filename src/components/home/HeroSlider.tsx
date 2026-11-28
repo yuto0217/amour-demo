@@ -62,17 +62,6 @@ export function HeroSlider() {
             </div>
           )}
         </div>
-
-        {/* スクロールを促す装飾（動かない。読み上げは不要なので aria-hidden） */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-x-0 bottom-4 hidden flex-col items-center gap-2 text-paper/80 sm:flex"
-        >
-          <span lang="en" className="font-display text-xs tracking-[0.3em]">
-            {ui.scroll}
-          </span>
-          <span className="block h-8 w-px bg-paper/60" />
-        </div>
       </div>
 
     </section>

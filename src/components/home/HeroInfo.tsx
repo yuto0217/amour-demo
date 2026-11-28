@@ -3,10 +3,11 @@ import { useSite } from '../../content/site'
 import { MapEmbed } from '../sections/MapEmbed'
 import { Icon } from '../ui/Icon'
 import { Container, Section, SectionHeading } from '../ui/Section'
+import { DetailSections } from './DetailSections'
 import { PointsSlider } from './PointsSlider'
 
 /**
- * ヒーローの下に続く、宿の魅力（魅力ごとに番号・見出し・説明と、横幅いっぱいに流れる写真）とアクセス（地図つき）
+ * ヒーローの下に続く、宿の魅力（魅力ごとに、横幅いっぱいに流れる写真を先に、番号・見出し・説明を後に。パソコンでは左右交互）→ お部屋・料理・温泉の紹介 → アクセス（地図つき）
  * 予約のボタンはヘッダー（パソコン）と画面下（スマホ）に出している
  */
 export function HeroInfo() {
@@ -29,20 +30,17 @@ export function HeroInfo() {
             {site.points.map((point, i) => (
               <li
                 key={i}
-                className={`lg:grid lg:items-center lg:gap-14 ${i % 2 === 1 ? 'lg:grid-cols-[3fr_2fr]' : 'lg:grid-cols-[2fr_3fr]'}`}
+                className={`flex flex-col lg:grid lg:items-center lg:gap-14 ${i % 2 === 1 ? 'lg:grid-cols-[3fr_2fr]' : 'lg:grid-cols-[2fr_3fr]'}`}
               >
                 <Container className="lg:px-0">
                   <div>
-                    <p lang="en" aria-hidden="true" className="font-display text-3xl text-kaki-dark">
-                      {String(i + 1).padStart(2, '0')}
-                    </p>
-                    <h3 className="mt-2 text-2xl leading-snug font-medium text-mori-dark sm:text-[1.75rem]">
+                    <h3 className="text-2xl leading-snug font-medium text-mori-dark sm:text-[1.75rem]">
                       <span className={site.lang === 'ja' ? 'whitespace-nowrap max-sm:text-[min(1.25rem,5.2vw)]' : ''}>{point.text}</span>
                     </h3>
                     {point.description && <p className="mt-4 max-w-3xl text-justify text-lg leading-loose">{point.description}</p>}
                   </div>
                 </Container>
-                <div className={`mt-8 lg:mt-0 ${i % 2 === 1 ? 'lg:order-first' : ''}`}>
+                <div className={`order-first mb-8 lg:mb-0 ${i % 2 === 1 ? '' : 'lg:order-last'}`}>
                   <PointsSlider photos={point.photos} label={point.text} />
                 </div>
               </li>
@@ -51,8 +49,10 @@ export function HeroInfo() {
         </section>
       )}
 
+      <DetailSections />
+
       {(site.access || site.address) && (
-        <Section labelledBy="home-access" className={site.points.length > 0 ? 'pt-0 sm:pt-0' : ''}>
+        <Section labelledBy="home-access" className={site.points.length > 0 || site.details.length > 0 ? 'pt-0 sm:pt-0' : ''}>
           <SectionHeading id="home-access" title={ui.access} eyebrow="Access" />
           <div className="grid gap-6">
             {site.access && (

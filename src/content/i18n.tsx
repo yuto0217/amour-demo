@@ -66,7 +66,7 @@ const ui = {
     demoFooter: 'このサイトはホームページのご提案用の見本です。',
     demoPage: '見本サイトのため表示されません。',
     notFound: 'ページが見つかりません',
-    pointsFallback: '宿の魅力',
+    pointsFallback: '宿の特徴',
     access: 'アクセス',
     callToBook: '電話で予約',
     reservations: 'ご予約',

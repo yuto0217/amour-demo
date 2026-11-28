@@ -43,6 +43,39 @@ export interface InnPoint {
   photos: SiteImage[]
 }
 
+/** お部屋・料理・温泉の紹介の特徴1つ（短い見出しと、事実の説明） */
+export interface InnDetailFeature {
+  /** 特徴の見出し（短い言葉。例：「全7室の洋室」） */
+  title: string
+  /** 見出しの下の説明（1文。事実だけで、誇張はしない）。なければ null */
+  text: string | null
+  /** 見出しの下に箇条書きで並べる短い言葉（例：お部屋のアメニティの「Wi-Fi 無料」「全室禁煙」「バス・トイレ別」）。なければ省略 */
+  items?: string[]
+}
+
+/**
+ * 宿の魅力の後に続く、お部屋・料理・温泉・お風呂の紹介（タブの中身のページは作らず、トップに短くまとめて出す）
+ * 情報収集の「客室」「料理」「温泉・風呂」の事実だけで書く。口コミの文は写さない。分からないことは書かない
+ */
+export interface InnDetail {
+  /** 見出し（ふつうは「お部屋」「お料理」「温泉・お風呂」。宿の呼び方があれば合わせる。例：「露天風呂」） */
+  title: string
+  /** 見出しの下の紹介文（1〜2文）。なければ null */
+  lead: string | null
+  /** 特徴・魅力のポイント（2〜4個） */
+  features: InnDetailFeature[]
+  /** 写真（1〜3枚。見本の間はラベル付きの色の枠。2枚以上で自動で切り替わる） */
+  photos: SiteImage[]
+}
+
+/** InnDetail の英語訳（日本語と同じ順） */
+export interface InnDetailEnglish {
+  title: string
+  lead: string | null
+  features: { title: string; text: string | null; items?: string[] }[]
+  photos: { label: string; alt: string }[]
+}
+
 /** 英語の表示（言語の切り替えボタンで英語を選んだとき）。日本語と同じ事実だけを訳す。書かない項目は日本語のまま */
 export interface InnEnglish {
   name: string
@@ -60,6 +93,10 @@ export interface InnEnglish {
   pointsTitle: string | null
   access: string | null
   bookingLabel: string
+  /** お部屋・料理・温泉の紹介の訳（省略すると日本語のまま） */
+  rooms?: InnDetailEnglish | null
+  cuisine?: InnDetailEnglish | null
+  bath?: InnDetailEnglish | null
 }
 
 export interface InnConfig {
@@ -99,6 +136,16 @@ export interface InnConfig {
   points: InnPoint[]
   /** 宿の魅力の見出し（例：「太郎の魅力」）。null なら見出しを出さない */
   pointsTitle: string | null
+  /**
+   * 宿の魅力の後に続く紹介（この順に出す）。情報収集の事実だけで書く
+   * - rooms：お部屋。どの宿でも書く。features は「広さ」「ベッドタイプ」「定員」「アメニティ」の4つをこの順で。アメニティは Wi-Fi・禁煙・バストイレ別などを items に箇条書きで書く（分からない項目は出さない）
+   * - cuisine：お食事。食事を出す宿はどれも書く（食事を出さない・分からない宿は null）。features は「朝食」「夕食」の2つで、それぞれ items に「内容：…」「開始時間：…」を箇条書きで書く（分からない行は出さない。夕食を出さない宿は夕食の items を「夕食はありません」のように書く）
+   * - bath：温泉・お風呂。温泉・お風呂が宿の強みのときだけ。そうでなければ null
+   * 宿の魅力（points）と同じ説明はくり返さず、時間・設備・内容などの具体的な事実を features に並べる
+   */
+  rooms: InnDetail | null
+  cuisine: InnDetail | null
+  bath: InnDetail | null
   /** アクセス（地名と最寄り駅・バス停・IC からの時間）。例：'伊豆急下田駅からバス約90分「雲見温泉」下車、歩いて2分' */
   access: string | null
   /** 住所（アクセスの Google マップに使う。分からない間は null で、地図を出さない） */
