@@ -35,6 +35,14 @@ export const inn: InnConfig = {
   ],
   points: [
     {
+      text: '八ヶ岳 標高約1,150mの自然を感じられる',
+      description: '八ヶ岳南麓、標高約1,150m。庭は木々の緑に囲まれ、屋根付きのデッキもございます。',
+      photos: [
+        { label: '木々に囲まれた庭の写真', alt: '八ヶ岳南麓の木々に囲まれた庭', tone: 'moss' },
+        { label: '屋根付きのデッキの写真', alt: '屋根付きのデッキ', tone: 'sky' },
+      ],
+    },
+    {
       text: '手作りの焼きたてパン',
       description: '朝食のパンは、毎朝仕込んで焼き上げています。朝食後には、パン作りの体験もご用意しています。',
       photos: [
@@ -49,14 +57,6 @@ export const inn: InnConfig = {
       photos: [
         { label: 'リビングでくつろぐ様子の写真', alt: '薪ストーブのあるリビング', tone: 'kaki' },
         { label: '食堂の写真', alt: '食堂', tone: 'wood' },
-      ],
-    },
-    {
-      text: '八ヶ岳の木々に囲まれた庭',
-      description: '八ヶ岳南麓、標高約1,150m。庭は木々の緑に囲まれ、屋根付きのデッキもございます。',
-      photos: [
-        { label: '木々に囲まれた庭の写真', alt: '八ヶ岳南麓の木々に囲まれた庭', tone: 'moss' },
-        { label: '屋根付きのデッキの写真', alt: '屋根付きのデッキ', tone: 'sky' },
       ],
     },
   ],
